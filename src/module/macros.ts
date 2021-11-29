@@ -67,3 +67,19 @@ export function dropRider(mountNameOrId) {
       error(`A token could not be found with the name or id : ${mountName}`);
     }
 }
+
+/**
+ * Macro function to toggle a rider mount pair
+ * @param {string} riderNameOrId - The name or the ID of the rider
+ * @param {string} mountNameOrId - The name or the ID of the mount
+ */
+export function toggleMount(riderNameOrId, mountNameOrId) {
+    let rider = findTokenById(riderNameOrId) || findTokenByName(riderNameOrId);
+    let mount = findTokenById(mountNameOrId) || findTokenByName(mountNameOrId);
+
+    if (rider.getFlag(FlagScope, Flags.Mount) == mount.id) {
+        dismount(riderNameOrId);
+    } else {
+        mount(riderNameOrId, mountNameOrId);
+    }
+}
